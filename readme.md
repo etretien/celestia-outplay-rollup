@@ -46,11 +46,45 @@ outplayd tx outplay submit-score 8d8b0a01bc681979f5ad80a1e4516758d7db5cf93e61b6f
 # List user profiles
 outplayd query outplay list-profile 
 
+Output example (note the update Elo ratings):
+profile:
+- dateOfBirth: 26.10.1985
+  elo: "2387"
+  index: bd10d5a7012a1cd2d9e8d24cd60527fba3ef1e7698cfd08a912a7c3ebe0c18c3
+  name: Alex
+  ntrpRating: "4.5"
+  owner: outplay1gnd76vf2sezajrm98mj2k7l2wa5y9frzfezg45
+  playingHand: left
+- dateOfBirth: 26.10.1988
+  elo: "2029"
+  index: fa3867f5aca1185974ee975d60983e4e8be834691bc82e65bb1a9ef3ef698f9a
+  name: Dima
+  ntrpRating: "3.5"
+  owner: outplay1ws8m4ch8m350xz6dck4gvh9py9za6qv6hd504p
+  playingHand: right
+
 # List challenges
 outplayd query outplay list-challenges
 
+Output example:
+challenge:
+- challengeId: 5896a89a815199268202d8c85462409fd262cff96b71e38eff72fcfe0e4a5449
+  challenged: outplay1ws8m4ch8m350xz6dck4gvh9py9za6qv6hd504p
+  challenger: outplay1gnd76vf2sezajrm98mj2k7l2wa5y9frzfezg45
+  index: 5896a89a815199268202d8c85462409fd262cff96b71e38eff72fcfe0e4a5449
+  stake: "80000.00"
+  status: accepted
+
 # List matches:
 outplayd query outplay list-matches
+
+Output example (winner and loser are determined automatically):
+match:
+- challengeId: ""
+  index: 5896a89a815199268202d8c85462409fd262cff96b71e38eff72fcfe0e4a5449
+  loser: outplay1gnd76vf2sezajrm98mj2k7l2wa5y9frzfezg45
+  score: 1:6,7:6,1:6
+  winner: outplay1ws8m4ch8m350xz6dck4gvh9py9za6qv6hd504p
 ```
 
 ## Future Work
