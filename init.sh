@@ -13,11 +13,11 @@ DA_BLOCK_HEIGHT=$(curl -s https://rpc-blockspacerace.pops.one/block | jq -r '.re
 echo $DA_BLOCK_HEIGHT
 
 ignite chain build
-wordled tendermint unsafe-reset-all
-wordled init $VALIDATOR_NAME --chain-id $CHAIN_ID
+outplayd tendermint unsafe-reset-all
+outplayd init $VALIDATOR_NAME --chain-id $CHAIN_ID
 
-wordled keys add $KEY_NAME --keyring-backend test
-wordled add-genesis-account $KEY_NAME $TOKEN_AMOUNT --keyring-backend test
-wordled gentx $KEY_NAME $STAKING_AMOUNT --chain-id $CHAIN_ID --keyring-backend test
-wordled collect-gentxs
-wordled start --rollkit.aggregator true --rollkit.da_layer celestia --rollkit.da_config='{"base_url":"http://localhost:26659","timeout":60000000000,"fee":6000,"gas_limit":6000000}' --rollkit.namespace_id $NAMESPACE_ID --rollkit.da_start_height $DA_BLOCK_HEIGHT
+outplayd keys add $KEY_NAME --keyring-backend test
+outplayd add-genesis-account $KEY_NAME $TOKEN_AMOUNT --keyring-backend test
+outplayd gentx $KEY_NAME $STAKING_AMOUNT --chain-id $CHAIN_ID --keyring-backend test
+outplayd collect-gentxs
+outplayd start --rollkit.aggregator true --rollkit.da_layer celestia --rollkit.da_config='{"base_url":"http://localhost:26659","timeout":60000000000,"fee":6000,"gas_limit":6000000}' --rollkit.namespace_id $NAMESPACE_ID --rollkit.da_start_height $DA_BLOCK_HEIGHT
