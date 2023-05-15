@@ -2,6 +2,8 @@ package keeper
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"math"
 	"outplay/x/outplay/types"
@@ -59,9 +61,12 @@ func (k msgServer) SubmitScore(goCtx context.Context, msg *types.MsgSubmitScore)
 		loserScore = challengerGames
 	}
 
+	winnerHash := sha256.Sum256([]byte(winner))
+	loserHash := sha256.Sum256([]byte(loser))
+
 	// Get the profiles of the winner and the loser
-	winnerProfile, _ := k.GetProfile(ctx, winner)
-	loserProfile, _ := k.GetProfile(ctx, loser)
+	winnerProfile, _ := k.GetProfile(ctx, hex.EncodeToString(winnerHash[:]))
+	loserProfile, _ := k.GetProfile(ctx, hex.EncodeToString(loserHash[:]))
 
 	// Update the Elo ratings
 	winnerOldRating, _ := strconv.Atoi(winnerProfile.Elo)
@@ -85,8 +90,8 @@ func (k msgServer) SubmitScore(goCtx context.Context, msg *types.MsgSubmitScore)
 	// Save the match to the keeper
 	k.SetMatch(ctx, match)
 
-	// Convert the stake to an integer
-	stake, err := strconv.Atoi(challenge.Stake)
+	// Convert the stake to number
+	stake, err := strconv.ParseFloat(challenge.Stake, 64)
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Invalid stake format")
 	}
@@ -99,6 +104,10 @@ func (k msgServer) SubmitScore(goCtx context.Context, msg *types.MsgSubmitScore)
 	if err != nil {
 		return nil, err
 	}
+
+	// Update the challenge status to "declined"
+	challenge.Status = "finished"
+	k.SetChallenge(ctx, challenge)
 
 	return &types.MsgSubmitScoreResponse{}, nil
 }

@@ -72048,6 +72048,9 @@ definitions:
     type: object
   outplay.outplay.MsgCreateChallengeResponse:
     type: object
+    properties:
+      response:
+        type: string
   outplay.outplay.MsgCreateProfileResponse:
     type: object
   outplay.outplay.MsgDeclineChallengeResponse:
