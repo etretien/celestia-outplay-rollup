@@ -1,0 +1,14 @@
+syntax = "proto3";
+package outplay.outplay;
+
+option go_package = "outplay/x/outplay/types";
+
+message Match {
+  string index = 1; 
+  string challengeId = 2; 
+  string score = 3; 
+  string winner = 4; 
+  string loser = 5; 
+  
+}
+

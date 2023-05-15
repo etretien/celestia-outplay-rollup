@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+package outplay.outplay;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "outplay/outplay/params.proto";
+import "outplay/outplay/profile.proto";
+import "outplay/outplay/challenge.proto";
+import "outplay/outplay/match.proto";
+
+option go_package = "outplay/x/outplay/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  
+  // Parameters queries the parameters of the module.
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/outplay/outplay/params";
+  
+  }
+  
+  // Queries a list of Profile items.
+  rpc Profile    (QueryGetProfileRequest) returns (QueryGetProfileResponse) {
+    option (google.api.http).get = "/outplay/outplay/profile/{index}";
+  
+  }
+  rpc ProfileAll (QueryAllProfileRequest) returns (QueryAllProfileResponse) {
+    option (google.api.http).get = "/outplay/outplay/profile";
+  
+  }
+  
+  // Queries a list of Challenge items.
+  rpc Challenge    (QueryGetChallengeRequest) returns (QueryGetChallengeResponse) {
+    option (google.api.http).get = "/outplay/outplay/challenge/{index}";
+  
+  }
+  rpc ChallengeAll (QueryAllChallengeRequest) returns (QueryAllChallengeResponse) {
+    option (google.api.http).get = "/outplay/outplay/challenge";
+  
+  }
+  
+  // Queries a list of Match items.
+  rpc Match    (QueryGetMatchRequest) returns (QueryGetMatchResponse) {
+    option (google.api.http).get = "/outplay/outplay/match/{index}";
+  
+  }
+  rpc MatchAll (QueryAllMatchRequest) returns (QueryAllMatchResponse) {
+    option (google.api.http).get = "/outplay/outplay/match";
+  
+  }
+}
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetProfileRequest {
+  string index = 1;
+}
+
+message QueryGetProfileResponse {
+  Profile profile = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllProfileRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllProfileResponse {
+  repeated Profile                                profile    = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetChallengeRequest {
+  string index = 1;
+}
+
+message QueryGetChallengeResponse {
+  Challenge challenge = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllChallengeRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllChallengeResponse {
+  repeated Challenge                              challenge  = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetMatchRequest {
+  string index = 1;
+}
+
+message QueryGetMatchResponse {
+  Match match = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllMatchRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllMatchResponse {
+  repeated Match                                  match      = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+

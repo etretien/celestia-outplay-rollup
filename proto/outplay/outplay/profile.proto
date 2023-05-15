@@ -1,0 +1,16 @@
+syntax = "proto3";
+package outplay.outplay;
+
+option go_package = "outplay/x/outplay/types";
+
+message Profile {
+  string index = 1; 
+  string owner = 2; 
+  string name = 3; 
+  string dateOfBirth = 4; 
+  string playingHand = 5; 
+  string ntrpRating = 6; 
+  string elo = 7; 
+  
+}
+

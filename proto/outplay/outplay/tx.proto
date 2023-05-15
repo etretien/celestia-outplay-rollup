@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package outplay.outplay;
+
+option go_package = "outplay/x/outplay/types";
+
+// Msg defines the Msg service.
+service Msg {
+  rpc CreateProfile    (MsgCreateProfile   ) returns (MsgCreateProfileResponse   );
+  rpc CreateChallenge  (MsgCreateChallenge ) returns (MsgCreateChallengeResponse );
+  rpc AcceptChallenge  (MsgAcceptChallenge ) returns (MsgAcceptChallengeResponse );
+  rpc DeclineChallenge (MsgDeclineChallenge) returns (MsgDeclineChallengeResponse);
+  rpc SubmitScore      (MsgSubmitScore     ) returns (MsgSubmitScoreResponse     );
+}
+message MsgCreateProfile {
+  string creator     = 1;
+  string name        = 2;
+  string dateOfBirth = 3;
+  string playingHand = 4;
+  string ntrpRating  = 5;
+}
+
+message MsgCreateProfileResponse {}
+
+message MsgCreateChallenge {
+  string creator  = 1;
+  string opponent = 2;
+  string stake    = 3;
+}
+
+message MsgCreateChallengeResponse {}
+
+message MsgAcceptChallenge {
+  string creator     = 1;
+  string challengeId = 2;
+}
+
+message MsgAcceptChallengeResponse {}
+
+message MsgDeclineChallenge {
+  string creator     = 1;
+  string challengeId = 2;
+}
+
+message MsgDeclineChallengeResponse {}
+
+message MsgSubmitScore {
+  string creator     = 1;
+  string challengeId = 2;
+  string score       = 3;
+}
+
+message MsgSubmitScoreResponse {}
+

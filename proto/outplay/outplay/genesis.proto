@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package outplay.outplay;
+
+import "gogoproto/gogo.proto";
+import "outplay/outplay/params.proto";
+import "outplay/outplay/profile.proto";
+import "outplay/outplay/challenge.proto";
+import "outplay/outplay/match.proto";
+
+option go_package = "outplay/x/outplay/types";
+
+// GenesisState defines the outplay module's genesis state.
+message GenesisState {
+           Params    params        = 1 [(gogoproto.nullable) = false];
+  repeated Profile   profileList   = 2 [(gogoproto.nullable) = false];
+  repeated Challenge challengeList = 3 [(gogoproto.nullable) = false];
+  repeated Match     matchList     = 4 [(gogoproto.nullable) = false];
+}
+

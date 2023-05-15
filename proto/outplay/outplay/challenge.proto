@@ -1,0 +1,15 @@
+syntax = "proto3";
+package outplay.outplay;
+
+option go_package = "outplay/x/outplay/types";
+
+message Challenge {
+  string index = 1; 
+  string challengeId = 2; 
+  string stake = 3; 
+  string challenger = 4; 
+  string challenged = 5; 
+  string status = 6; 
+  
+}
+
