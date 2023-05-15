@@ -51,6 +51,7 @@ outplayd query outplay list-challenges
 
 # List matches:
 outplayd query outplay list-matches
+```
 
 ## Future Work
 This is a prototype and there are many potential improvements and additional features that could be added. Some possibilities include:
