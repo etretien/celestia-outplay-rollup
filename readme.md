@@ -1,52 +1,64 @@
-# outplay
-**outplay** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
+# Outplay Tennis Blockchain App
 
-## Get started
+Outplay is the first application for amateur athletes that allows you to receive cash rewards for playing the sport you love. You can also find partners and track your progress in your favorite sport within the app. Build your own sports community and receive extra rewards for having around you the people who share the same passion as you.
 
-```
-ignite chain serve
-```
+This repository contains the blockchain backend for the Outplay Tennis app, built using Cosmos SDK and Rollkit. The app allows users to create profiles, challenge other users to matches, accept or decline challenges, and submit match scores.
 
-`serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
+## Features
 
-### Configure
+- **Create Profile**: Users can create a profile with their name, date of birth, playing hand, and NTRP rating. The profile also includes an Elo rating, which is initially calculated based on the NTRP rating. The command to create a profile is `create-profile`.
 
-Your blockchain in development can be configured with `config.yml`. To learn more, see the [Ignite CLI docs](https://docs.ignite.com).
+- **Create Challenge**: Users can challenge other users to a match by specifying the stake (in tokens) for the match. The command to create a challenge is `create-challenge`.
 
-### Web Frontend
+- **Accept Challenge**: The challenged user can accept the challenge. Upon acceptance, the same amount of tokens as the stake is locked from their account. The command to accept a challenge is `accept-challenge`.
 
-Ignite CLI has scaffolded a Vue.js-based web app in the `vue` directory. Run the following commands to install dependencies and start the app:
+- **Decline Challenge**: The challenged user can also decline the challenge. If a challenge is declined, the challenger's locked tokens are unlocked. The command to decline a challenge is `decline-challenge`.
 
-```
-cd vue
-npm install
-npm run serve
-```
+- **Submit Score**: After a match, the winner can submit the score. The score is verified and saved, and the total stake (from both users) is transferred to the winner. The Elo ratings of both users are also updated based on the match result. The command to submit a score is `submit-score`.
 
-The frontend app is built using the `@starport/vue` and `@starport/vuex` packages. For details, see the [monorepo for Ignite front-end development](https://github.com/ignite/web).
+## Building and Running
 
-## Release
-To release a new version of your blockchain, create and push a new tag with `v` prefix. A new draft release with the configured targets will be created.
+To build the application, you can use the `./init.sh` command from the root directory of the repository.
 
-```
-git tag v0.1
-git push origin v0.1
-```
+You need a Celestia light node running locally with some TIA balance on it.
 
-After a draft release is created, make your final changes from the release page and publish it.
+## Examples
 
-### Install
-To install the latest version of your blockchain node's binary, execute the following command on your machine:
+Here are some examples of how to use the commands using the Outplay CLI:
 
-```
-curl https://get.ignite.com/username/outplay@latest! | sudo bash
-```
-`username/outplay` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
+```bash
+# Create profiles
+outplayd tx outplay create-profile Dima 26.10.1988 right 3.5 --from=dima --keyring-backend test
+outplayd tx outplay create-profile Alex 26.10.1985 left 4.5 --from=alex --keyring-backend test
 
-## Learn more
+# Create a challenge
+outplayd tx outplay create-challenge outplay1a7c5rmu7rzdwal7kwcmm05txxm0fq30d8rz8ju 80000 --from=alex --keyring-backend test
 
-- [Ignite CLI](https://ignite.com/cli)
-- [Tutorials](https://docs.ignite.com/guide)
-- [Ignite CLI docs](https://docs.ignite.com)
-- [Cosmos SDK docs](https://docs.cosmos.network)
-- [Developer Chat](https://discord.gg/ignite)
+# Decline a challenge
+outplayd tx outplay decline-challenge 3f5ee6e9310e502bfb623ff493e651c6ca9ac691c36740f0552b2cdbd5ff9791 --from=dima --keyring-backend test
+
+# Accept a challenge
+outplayd tx outplay accept-challenge 8d8b0a01bc681979f5ad80a1e4516758d7db5cf93e61b6f3bc15d5e4b30bae9f --from=dima --keyring-backend test
+
+# Submit a score
+outplayd tx outplay submit-score 8d8b0a01bc681979f5ad80a1e4516758d7db5cf93e61b6f3bc15d5e4b30bae9f "1:6,7:6,1:6" --from=dima --keyring-backend test
+
+# List user profiles
+outplayd query outplay list-profile 
+
+# List challenges
+outplayd query outplay list-challenges
+
+# List matches:
+outplayd query outplay list-matches
+
+## Future Work
+This is a prototype and there are many potential improvements and additional features that could be added. Some possibilities include:
+
+- Adding more detailed match information, such as the date and location of the match.
+- Allowing users to submit evidence of the match result, such as photos or videos.
+- Implementing a dispute resolution mechanism for contested match results.
+- Adding support for different types of matches (e.g., singles, doubles) and different scoring systems.
+- Integrating with a front-end app for a better user experience (for now only CLI has been implemented).
+
+We welcome contributions and feedback. Please feel free to open an issue or submit a pull request if you have any suggestions or find any bugs.
