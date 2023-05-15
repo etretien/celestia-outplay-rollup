@@ -41,7 +41,7 @@ func (k msgServer) CreateChallenge(goCtx context.Context, msg *types.MsgCreateCh
 	k.SetChallenge(ctx, challenge)
 
 	// Lock the challenger's coins for escrow
-	stakeCoins := sdk.Coins{sdk.NewInt64Coin("token", int64(stake))}
+	stakeCoins := sdk.Coins{sdk.NewInt64Coin("stake", int64(stake))}
 	challengerAddress, _ := sdk.AccAddressFromBech32(msg.Creator)
 	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
 	err := k.bankKeeper.SendCoins(ctx, challengerAddress, moduleAcct, stakeCoins)

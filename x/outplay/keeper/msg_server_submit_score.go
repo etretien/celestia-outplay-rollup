@@ -92,7 +92,7 @@ func (k msgServer) SubmitScore(goCtx context.Context, msg *types.MsgSubmitScore)
 	}
 
 	// Unlock the reward
-	reward := sdk.Coins{sdk.NewInt64Coin("token", int64(2*stake))}
+	reward := sdk.Coins{sdk.NewInt64Coin("stake", int64(2*stake))}
 	winnerAddress, _ := sdk.AccAddressFromBech32(winner)
 	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
 	err = k.bankKeeper.SendCoins(ctx, moduleAcct, winnerAddress, reward)

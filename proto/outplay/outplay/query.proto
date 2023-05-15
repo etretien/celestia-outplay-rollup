@@ -50,6 +50,12 @@ service Query {
     option (google.api.http).get = "/outplay/outplay/match";
   
   }
+  
+  // Queries a list of UserInfo items.
+  rpc UserInfo (QueryUserInfoRequest) returns (QueryUserInfoResponse) {
+    option (google.api.http).get = "/outplay/outplay/user_info/{user}";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -110,5 +116,14 @@ message QueryAllMatchRequest {
 message QueryAllMatchResponse {
   repeated Match                                  match      = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryUserInfoRequest {
+  string user = 1;
+}
+
+message QueryUserInfoResponse {
+  string profile = 1;
+  string matches = 2;
 }
 

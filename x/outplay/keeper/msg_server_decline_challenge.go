@@ -26,7 +26,7 @@ func (k msgServer) DeclineChallenge(goCtx context.Context, msg *types.MsgDecline
 
 	// Unlock the challenger's coins from escrow
 	stake, _ := strconv.ParseFloat(challenge.Stake, 64)
-	stakeCoins := sdk.Coins{sdk.NewInt64Coin("token", int64(stake))}
+	stakeCoins := sdk.Coins{sdk.NewInt64Coin("stake", int64(stake))}
 	challengerAddress, _ := sdk.AccAddressFromBech32(challenge.Challenger)
 	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
 	err := k.bankKeeper.SendCoins(ctx, moduleAcct, challengerAddress, stakeCoins)
