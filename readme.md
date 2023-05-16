@@ -64,7 +64,7 @@ profile:
   playingHand: right
 
 # List challenges
-outplayd query outplay list-challenges
+outplayd query outplay list-challenge
 
 Output example:
 challenge:
@@ -76,7 +76,7 @@ challenge:
   status: accepted
 
 # List matches:
-outplayd query outplay list-matches
+outplayd query outplay list-match
 
 Output example (winner and loser are determined automatically):
 match:
